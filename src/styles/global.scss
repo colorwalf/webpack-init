@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+body {
+  background-color: $default-bgcolor;
+}
+
+@for $i from 0 through 15 {
+  .strict#{$i}{
+    >div{
+      padding-left: #{$i}px;
+      padding-right: #{$i}px;
+    }
+  }
+}

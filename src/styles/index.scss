@@ -1,0 +1,115 @@
+$fa-font-path: '/build/font/';
+@import "font-awesome/fontawesome";
+@import "font-awesome/brands.scss";
+@import "font-awesome/solid.scss";
+@import "bootstrap-cust";
+
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+/*  樣式變數定義  */
+
+@import "var";
+
+/*  mixins定義 */
+
+@import "mixin";
+
+/*  全站統一性定義  */
+
+
+@import "global";
+
+body{
+  background-color: $default-bgcolor;
+  .container{
+    background-color: $container-bgcolor;
+    .blog-header{
+      >div{
+        background-color: $primary;
+        min-height: 120px;
+      }
+      .blog-header-logo{
+        overflow: hidden;
+        text-indent: -999px;
+        background-repeat: no-repeat;
+        background-image: url(/build/images/logo.png);
+        background-position: center;
+        background-size: 64px;
+        display: block;
+        height: 128px;
+        width: 128px;
+        margin: 15px auto;
+      }
+      .quick-link-icon{
+        margin-top: 60px;
+
+        .list-inline-item{
+          .icon{
+            display: inline-block;
+            text-indent: -999px;
+            overflow: hidden;
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+
+    .slider-pro{
+      margin-bottom: 15px;
+    }
+
+    .blog-post{
+      margin-bottom: 30px;
+      .blog-post-title{
+        .sub{
+          color: #ff8551;
+          font-size: 50%;
+        }
+      }
+      &::after{
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+  .blog-footer{
+    min-height: 150px;
+    background-color: $footer-bgcolor;
+    padding-top: 30px;
+    .container{
+      background-color: transparent;
+    }
+    .social-list{
+      .fab{
+        font-size: 4rem;
+      }
+    }
+    .copyright{
+      text-align: right;
+      float: right;
+      color: $footer-color;
+      .title{
+        color: $gray-500;
+      }
+      .designer{
+        margin-bottom: 6px;
+        dt{
+          float: left;
+        }
+        dd{
+          margin-left: 100px;
+        }
+        .name{
+          &::before{
+            content: '/';
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+  }
+}
