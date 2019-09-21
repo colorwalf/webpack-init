@@ -1,10 +1,37 @@
-$fa-font-path: '/build/font/';
-@import "font-awesome/fontawesome";
-@import "font-awesome/brands.scss";
-@import "font-awesome/solid.scss";
-@import "bootstrap-cust";
+/* Fontawesome 5 config */
+$fa-font-path : "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
+  src: url('#{$fa-font-path}/fa-regular-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: normal;
+  src: url('#{$fa-font-path}/fa-brands-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  src: url('#{$fa-font-path}/fa-solid-900.woff2') format('woff2');
+}
+//
+.fa,
+.fas {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.fab {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
+}
+@import "~bootstrap/scss/bootstrap";
 
 /*  樣式變數定義  */
 

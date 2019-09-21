@@ -59,7 +59,22 @@ module.exports = {
                         options: { byPassOnDebug: true }
                     }
                 ]
-            }
+            },
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            //name: '[name].[ext]',
+                            name: '[name].[ext]',
+                            mimetype: 'application/font-woff',
+                            outputPath: 'fonts',
+                            publicPath: '../build/fonts'       // override the default path
+                        }
+                    }
+                ]
+            },
         ]   //rules end
     },
     plugins: [
@@ -75,19 +90,23 @@ module.exports = {
         new CopyPlugin([
             {
                 from:'./src/vender/**/*.gif',
-                to: './build/images/[name].[ext]',
+                to: './images/[name].[ext]',
                 flatten: true
             },{
                 from:'./src/vender/**/*.jpg',
-                to: './build/images/[name].[ext]',
+                to: './images/[name].[ext]',
                 flatten: true
             },{
                 from:'./src/vender/**/*.png',
-                to: './build/images/[name].[ext]',
+                to: './images/[name].[ext]',
                 flatten: true
             },{
                 from:'./src/vender/**/*.cur',
-                to: './build/images/[name].[ext]',
+                to: './images/[name].[ext]',
+                flatten: true
+            },{
+                from:'./src/images/*.jpeg',
+                to: './images/[name].[ext]',
                 flatten: true
             }
         ]),
