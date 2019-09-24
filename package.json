@@ -1,7 +1,7 @@
 {
   "name": "gulp-sass",
   "version": "1.0.0",
-  "description": "Gulp Sass Sample",
+  "description": "Webpack Sass Sample",
   "main": "index.js",
   "author": "Jeff Liu <jeff@cct95.com>",
   "license": "MIT",
