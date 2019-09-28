@@ -1,0 +1,134 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$briefcase-name: 'briefcase';
+$briefcase-x: 0px;
+$briefcase-y: 0px;
+$briefcase-offset-x: 0px;
+$briefcase-offset-y: 0px;
+$briefcase-width: 32px;
+$briefcase-height: 32px;
+$briefcase-total-width: 96px;
+$briefcase-total-height: 64px;
+$briefcase-image: '../images/sprite.png';
+$briefcase: (0px, 0px, 0px, 0px, 32px, 32px, 96px, 64px, '../images/sprite.png', 'briefcase', );
+$clock-name: 'clock';
+$clock-x: 32px;
+$clock-y: 0px;
+$clock-offset-x: -32px;
+$clock-offset-y: 0px;
+$clock-width: 32px;
+$clock-height: 32px;
+$clock-total-width: 96px;
+$clock-total-height: 64px;
+$clock-image: '../images/sprite.png';
+$clock: (32px, 0px, -32px, 0px, 32px, 32px, 96px, 64px, '../images/sprite.png', 'clock', );
+$mark-name: 'mark';
+$mark-x: 0px;
+$mark-y: 32px;
+$mark-offset-x: 0px;
+$mark-offset-y: -32px;
+$mark-width: 32px;
+$mark-height: 32px;
+$mark-total-width: 96px;
+$mark-total-height: 64px;
+$mark-image: '../images/sprite.png';
+$mark: (0px, 32px, 0px, -32px, 32px, 32px, 96px, 64px, '../images/sprite.png', 'mark', );
+$setting-name: 'setting';
+$setting-x: 32px;
+$setting-y: 32px;
+$setting-offset-x: -32px;
+$setting-offset-y: -32px;
+$setting-width: 32px;
+$setting-height: 32px;
+$setting-total-width: 96px;
+$setting-total-height: 64px;
+$setting-image: '../images/sprite.png';
+$setting: (32px, 32px, -32px, -32px, 32px, 32px, 96px, 64px, '../images/sprite.png', 'setting', );
+$speak-name: 'speak';
+$speak-x: 64px;
+$speak-y: 0px;
+$speak-offset-x: -64px;
+$speak-offset-y: 0px;
+$speak-width: 32px;
+$speak-height: 32px;
+$speak-total-width: 96px;
+$speak-total-height: 64px;
+$speak-image: '../images/sprite.png';
+$speak: (64px, 0px, -64px, 0px, 32px, 32px, 96px, 64px, '../images/sprite.png', 'speak', );
+$spritesheet-width: 96px;
+$spritesheet-height: 64px;
+$spritesheet-image: '../images/sprite.png';
+$spritesheet-sprites: ($briefcase, $clock, $mark, $setting, $speak, );
+$spritesheet: (96px, 64px, '../images/sprite.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}

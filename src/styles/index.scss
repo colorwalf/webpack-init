@@ -46,6 +46,15 @@ $fa-font-path : "~@fortawesome/fontawesome-free/webfonts";
 
 @import "global";
 
+//引入sprites SASS
+@import "./sprites";
+
+.icon{
+  &.icon-clock{
+    @include sprite($clock);
+  }
+}
+
 body{
   background-color: $default-bgcolor;
   .container{

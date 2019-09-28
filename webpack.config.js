@@ -1,52 +1,25 @@
 const path = require("path");
 const rootPath = path.join(__dirname,'./');
+const srcPath = path.join(rootPath,'src');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-//抽出css檔案
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//自動產生html 靜態檔案對應
-const CopyPlugin = require('copy-webpack-plugin');
-const  WriteFilePlugin = require('write-file-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');    //抽出css檔案
+const HtmlWebpackPlugin = require('html-webpack-plugin');           //自動產生html 靜態檔案對應
+const CopyPlugin = require('copy-webpack-plugin');                  //複製目錄
+const  WriteFilePlugin = require('write-file-webpack-plugin');      //執行devServer時輸出檔案
+const SpritesmithPlugin = require('webpack-spritesmith');           //CSS Sprite
 
 module.exports = {
     mode: process.env.NODE_ENV || 'development',
     entry: {
-        main: './src/index.js'
+        main: path.resolve(srcPath, 'index.js'),
     },
     output: {
         filename: '[name].[chunkhash].js',          //filename: '[name].js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(rootPath, 'build')
     },
     devtool: 'source-map',
     module: {
         rules: [
-            {
-                test: /\.(sa|sc|c)ss$/, // /\.(sass|scss|css)$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: false,
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ],
-            },
             {
                 test: /\.(jpe?g|png|gif|svg)$/,
                 use: [
@@ -61,13 +34,40 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(sa|sc|c)ss$/, // /\.(sass|scss|css)$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: false,
+                            sourceMap: true
+                        }
+                    },
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         sourceMap: true
+                    //     }
+                    // },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ],
+            },
+            {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
                             //name: '[name].[ext]',
-                            limit: 10000000,
+                            limit: 10000,
                             name: '[name].[ext]',
                             mimetype: 'application/font-woff',
                             outputPath: 'fonts',
@@ -78,9 +78,30 @@ module.exports = {
             },
         ]   //rules end
     },
+    resolve: {
+        modules: [
+            'node_modules',
+            'src/sprite' //css在哪里能找到sprite图
+        ]
+    },
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'style.css',
+        }),
+        new SpritesmithPlugin({
+            src: {
+                cwd: path.resolve(srcPath, 'sprite'),  //准备合并成sprit的图片存放文件夹
+                glob: '**/*.png'
+                // glob: '**/*.{jpg,png}'
+            },
+            target: {
+                image: path.resolve(srcPath, 'images/sprite.png'),  // sprite图片保存路径
+                css: path.resolve(srcPath, 'styles/_sprites.scss')  // 生成的sass保存在哪里
+            },
+
+            apiOptions: {
+                cssImageRef: "../images/sprite.png" //css根据该指引找到sprite图
+            }
         }),
         new HtmlWebpackPlugin({
             inject: false,
