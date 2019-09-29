@@ -1,3 +1,9 @@
+import $ from 'jquery';
+import 'slider-pro';
+import 'slider-pro/dist/css/slider-pro.min.css';
+
+import 'magnific-popup';
+import 'magnific-popup/dist/magnific-popup.css';
 
 (function () {
     'use strict';
@@ -35,3 +41,4 @@
     });
 
 })(); // Page Ready
+

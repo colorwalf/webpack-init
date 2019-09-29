@@ -1,11 +1,12 @@
 const path = require("path");
+const webpack = require('webpack');
 const rootPath = path.join(__dirname,'./');
 const srcPath = path.join(rootPath,'src');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    //抽出css檔案
 const HtmlWebpackPlugin = require('html-webpack-plugin');           //自動產生html 靜態檔案對應
 const CopyPlugin = require('copy-webpack-plugin');                  //複製目錄
-const  WriteFilePlugin = require('write-file-webpack-plugin');      //執行devServer時輸出檔案
+const WriteFilePlugin = require('write-file-webpack-plugin');      //執行devServer時輸出檔案
 const SpritesmithPlugin = require('webpack-spritesmith');           //CSS Sprite
 
 module.exports = {
@@ -21,7 +22,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(jpe?g|png|gif|svg)$/,
+                test: /\.js|jsx$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg|cur)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -85,6 +95,12 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            'root.jQuery': 'jquery',
+        }),
         new MiniCssExtractPlugin({
             filename: 'style.css',
         }),
